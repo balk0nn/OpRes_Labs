@@ -5,6 +5,8 @@
 #include <sstream>
 #include <time.h>
 #include <random>
+#include <omp.h>
+#include <mutex>
 #include <unordered_set>
 #include <algorithm>
 using namespace std;
@@ -53,39 +55,89 @@ public:
 
     void FindClique(int randomization, int iterations)
     {
-        static mt19937 generator;
-        for (int iteration = 0; iteration < iterations; ++iteration)
+        //Best solution found across all threads
+        mutex best_mutex;
+
+        //Parallelism
+        #pragma omp parallel
         {
-            vector<int> clique;
-            vector<int> candidates(neighbour_sets.size());
-            for (int i = 0; i < neighbour_sets.size(); ++i)
+            //Unique random generator for each thread to avoid overlapping sequences
+            mt19937 gen(123456 + omp_get_thread_num());
+
+            //Best solution for the current thread
+            vector<int> thread_best;
+
+            //Paralleling the iterations
+            #pragma omp for schedule(dynamic)
+            for (int iter = 0; iter < iterations; ++iter)
             {
-                candidates[i] = i;
-            }
-            shuffle(candidates.begin(), candidates.end(), generator);
-            while (! candidates.empty())
-            {
-                int last = candidates.size() - 1;
-                int rnd = GetRandom(0, min(randomization - 1, last));
-                int vertex = candidates[rnd];
-                clique.push_back(vertex);
-                for (int c = 0; c < candidates.size(); ++c)
+                //Current clique
+                vector<int> clique;
+
+                //Candidates for expanding the clique
+                vector<int> candidates(neighbour_sets.size());
+                iota(candidates.begin(), candidates.end(), 0);
+
+                //As long as there are candidates to add to the clique
+                while (!candidates.empty())
                 {
-                    int candidate = candidates[c];
-                    if (neighbour_sets[vertex].count(candidate) == 0)
+                    //Estimation-vertex vector
+                    vector<pair<int,int>> scored;
+                    scored.reserve(candidates.size());
+
+                    //Computing the greedy score for each candidate vertex
+                    for (int v : candidates)
                     {
-                        // Move the candidate to the end and pop it
-                        swap(candidates[c], candidates[last]);
-                        candidates.pop_back();
-                        --c;
+                        int deg = 0;
+                        for (int u : candidates)
+                            if (u != v && neighbour_sets[v].count(u))
+                                ++deg;
+
+                        // deg = |N(v) ∩ candidates|
+                        scored.emplace_back(deg, v);
                     }
+
+                    //Sorting by greedy score
+                    sort(scored.begin(), scored.end(),
+                        [](const auto& a, const auto& b)
+                        {
+                            return a.first > b.first;
+                        });
+
+                    //Resctricted Candidate List
+                    int R = max(1, min(
+                        randomization,
+                        (int)scored.size()
+                    ));
+
+                    //Randomly choosing a vertex from RCL
+                    uniform_int_distribution<int> dist(0, R - 1);
+                    int v = scored[dist(gen)].second;
+
+                    //Adding chosen vertex to the clique
+                    clique.push_back(v);
+
+                    //Filtering the candidates list
+                    vector<int> new_candidates;
+                    for (int u : candidates)
+                    {
+                        if (u != v && neighbour_sets[v].count(u))
+                            new_candidates.push_back(u);
+                    }
+
+                    //Updating candidates
+                    candidates.swap(new_candidates);
                 }
-                shuffle(candidates.begin(), candidates.end(), generator);
+
+                // Updating the best solution found by the current thread
+                if (clique.size() > thread_best.size())
+                    thread_best = move(clique);
             }
-            if (clique.size() > best_clique.size())
-            {
-                best_clique = clique;
-            }
+
+            //Updating the best global solution if need be
+            lock_guard<mutex> lock(best_mutex);
+            if (thread_best.size() > best_clique.size())
+                best_clique = move(thread_best);
         }
     }
 
