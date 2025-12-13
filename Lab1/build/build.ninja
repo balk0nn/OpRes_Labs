@@ -47,7 +47,7 @@ build cmake_object_order_depends_target_Lab1: phony || .
 build CMakeFiles/Lab1.dir/src/main.cpp.obj: CXX_COMPILER__Lab1_unscanned_ D$:/VSCode/OpResLab/OpRes_Labs/Lab1/src/main.cpp || cmake_object_order_depends_target_Lab1
   DEP_FILE = CMakeFiles\Lab1.dir\src\main.cpp.obj.d
   FLAGS = -std=gnu++20
-  INCLUDES = -ID:/VSCode/OpResLab/OpRes_Labs/Lab1/src
+  INCLUDES = -ID:/VSCode/OpResLab/OpRes_Labs/Lab1/include
   OBJECT_DIR = CMakeFiles\Lab1.dir
   OBJECT_FILE_DIR = CMakeFiles\Lab1.dir\src
   TARGET_SUPPORT_DIR = CMakeFiles\Lab1.dir
