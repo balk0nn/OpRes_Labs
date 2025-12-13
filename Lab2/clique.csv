@@ -1,26 +1,26 @@
 File; Clique; Time (sec)
-Graphs/brock200_1.clq;20;1.131
-Graphs/brock200_2.clq;10;0.672
-Graphs/brock200_3.clq;14;0.801
-Graphs/brock200_4.clq;16;0.844
-Graphs/brock400_1.clq;24;4.724
-Graphs/brock400_2.clq;25;4.639
-Graphs/brock400_3.clq;24;5.265
-Graphs/brock400_4.clq;24;4.639
-Graphs/C125.9.clq;34;1.244
-Graphs/gen200_p0.9_44.clq;38;3,25
-Graphs/gen200_p0.9_55.clq;47;3.397
-Graphs/hamming8-4.clq;16;1.025
-Graphs/johnson16-2-4.clq;8;0.278
-Graphs/johnson8-2-4.clq;4;0.01
-Graphs/keller4.clq;11;0.634
-Graphs/MANN_a27.clq;126;90.136
-Graphs/MANN_a9.clq;16;0.147
-Graphs/p_hat1000-1.clq;10;13.929
-Graphs/p_hat1000-2.clq;45;38.055
-Graphs/p_hat1500-1.clq;11;34.841
-Graphs/p_hat300-3.clq;34;5.008
-Graphs/p_hat500-3.clq;49;17.253
-Graphs/san1000.clq;10;26.87
-Graphs/sanr200_0.9.clq;41;4.439
-Graphs/sanr400_0.7.clq;20;4.726
+Graphs/brock200_1.clq; 20; 1.131
+Graphs/brock200_2.clq; 10; 0.672
+Graphs/brock200_3.clq; 14; 0.801
+Graphs/brock200_4.clq; 16; 0.844
+Graphs/brock400_1.clq; 24; 4.724
+Graphs/brock400_2.clq; 25; 4.639
+Graphs/brock400_3.clq; 24; 5.265
+Graphs/brock400_4.clq; 24; 4.639
+Graphs/C125.9.clq; 34; 1.244
+Graphs/gen200_p0.9_44.clq; 38; 3.25
+Graphs/gen200_p0.9_55.clq; 47; 3.397
+Graphs/hamming8-4.clq; 16; 1.025
+Graphs/johnson16-2-4.clq; 8; 0.278
+Graphs/johnson8-2-4.clq; 4; 0.01
+Graphs/keller4.clq; 11; 0.634
+Graphs/MANN_a27.clq; 126; 90.136
+Graphs/MANN_a9.clq; 16; 0.147
+Graphs/p_hat1000-1.clq; 10; 13.929
+Graphs/p_hat1000-2.clq; 45; 38.055
+Graphs/p_hat1500-1.clq; 11; 34.841
+Graphs/p_hat300-3.clq; 34; 5.008
+Graphs/p_hat500-3.clq; 49; 17.253
+Graphs/san1000.clq; 10; 26.87
+Graphs/sanr200_0.9.clq; 41; 4.439
+Graphs/sanr400_0.7.clq; 20; 4.726
