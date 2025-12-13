@@ -1,0 +1,38 @@
+
+# CMake build artifacts
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.ninja
+*.log
+
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+
+# Object / binary files
+*.o
+*.obj
+*.a
+*.lib
+*.pdb
+*.ilk
+
+# Executables (keep exe!)
+# *.exe
+
+# OS / system junk
+.DS_Store
+Thumbs.db
+
+
+# MSYS / MinGW
+*.stackdump
+
+# Allow source code & graphs
+!**/*.cpp
+!**/*.h
+!Graphs/**

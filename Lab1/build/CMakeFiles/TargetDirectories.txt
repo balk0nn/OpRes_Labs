@@ -1,3 +1,0 @@
-D:/VSCode/OpResLab/OpRes_Labs/Lab1/build/CMakeFiles/Lab1.dir
-D:/VSCode/OpResLab/OpRes_Labs/Lab1/build/CMakeFiles/edit_cache.dir
-D:/VSCode/OpResLab/OpRes_Labs/Lab1/build/CMakeFiles/rebuild_cache.dir
