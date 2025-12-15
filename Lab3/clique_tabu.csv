@@ -1,0 +1,26 @@
+File; Clique; Time (sec)
+Graphs/brock200_1.clq; 21; 5.08
+Graphs/brock200_2.clq; 12; 4.976
+Graphs/brock200_3.clq; 15; 5.002
+Graphs/brock200_4.clq; 17; 5.032
+Graphs/brock400_1.clq; 25; 19.419
+Graphs/brock400_2.clq; 29; 20.007
+Graphs/brock400_3.clq; 31; 19.342
+Graphs/brock400_4.clq; 24; 19.326
+Graphs/C125.9.clq; 34; 3.504
+Graphs/gen200_p0.9_44.clq; 44; 5.877
+Graphs/gen200_p0.9_55.clq; 55; 6.477
+Graphs/hamming8-4.clq; 16; 9.111
+Graphs/johnson16-2-4.clq; 8; 1.813
+Graphs/johnson8-2-4.clq; 4; 0.492
+Graphs/keller4.clq; 11; 2.974
+Graphs/MANN_a27.clq; 125; 18.979
+Graphs/MANN_a9.clq; 16; 0.88
+Graphs/p_hat1000-1.clq; 10; 50.011
+Graphs/p_hat1000-2.clq; 46; 50.021
+Graphs/p_hat1500-1.clq; 11; 75.174
+Graphs/p_hat300-3.clq; 36; 12.064
+Graphs/p_hat500-3.clq; 50; 25.012
+Graphs/san1000.clq; 10; 50.029
+Graphs/sanr200_0.9.clq; 42; 6.266
+Graphs/sanr400_0.7.clq; 21; 19.647
