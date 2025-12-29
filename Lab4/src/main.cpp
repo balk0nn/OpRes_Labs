@@ -12,6 +12,8 @@
 using namespace std;
 
 
+// Реализованный здесь алгоритм это попытка миплементации алгоритма MQCD из статьи Konc/Janezic
+// https://gitlab.com/janezkonc/mcqd/-/tree/master  оригинальная реализация на C
 class BnBSolver {
 public:
     void ReadGraphFile(const std::string& filename) {
@@ -59,6 +61,12 @@ public:
         Q.clear();
         Qmax.clear();
 
+        startTime = clock();
+
+        if (logFile) {
+            (*logFile) << graphName << '\n';
+        }
+
 
         // Color classes step count
         int n = vertices.size();
@@ -70,7 +78,7 @@ public:
         level = 1;
         pk = 0;
 
-        
+        /*
         // Running initial heuristic to get a good lower bound
         MaxCliqueTabuSearch heuristic;
         vector<unordered_set<int>> neighbour_sets(n);
@@ -84,6 +92,7 @@ public:
         // Converting the result to BnBsolver format
         const auto &heurClique = heuristic.GetClique();
         Qmax.assign(heurClique.begin(), heurClique.end());
+        */
 
         // initial setup
         setDegrees(vertices);
@@ -92,6 +101,12 @@ public:
 
         // Starting the BnB
         BnBrecursion(vertices);
+
+        if (logFile) {
+            double t = double(clock() - startTime) / CLOCKS_PER_SEC;
+            (*logFile) << "FINISHED - Clique size: " << Qmax.size()
+                       << "; time: " << t << '\n';
+        }
     }
 
     const std::vector<int>& GetClique() const { return Qmax; }
@@ -112,7 +127,17 @@ public:
         for (auto &cls : C) cls.clear();
     }
 
+    void SetLogger(std::ofstream& out, const std::string& name)
+    {
+        logFile = &out;
+        graphName = name;
+    }
+
 private:
+
+    std::ofstream* logFile = nullptr; 
+    clock_t startTime;                  
+    std::string graphName;              
 
     // Vertex structure for convenience
     struct Vertex {
@@ -252,6 +277,12 @@ private:
                 // Found a leaf, check if better than best known
                 } else if (Q.size() > Qmax.size()) {
                     Qmax = Q;
+
+                    if (logFile) {
+                        double t = double(clock() - startTime) / CLOCKS_PER_SEC;
+                        (*logFile) << "New best: " << Qmax.size()
+                                << "; time: " << t << '\n';
+                    }
                 }
                 Q.pop_back();
                 R.pop_back();
@@ -270,6 +301,7 @@ int main()
     //cin.tie(nullptr);
     vector<string> files = 
     {
+        /*
         "Graphs/brock200_1.clq",
         "Graphs/brock200_2.clq",
         "Graphs/brock200_3.clq",
@@ -281,6 +313,7 @@ int main()
         "Graphs/johnson16-2-4.clq",
         "Graphs/johnson8-2-4.clq",
         "Graphs/keller4.clq",
+        */
         "Graphs/MANN_a27.clq",
         "Graphs/MANN_a9.clq",
         "Graphs/p_hat1000-1.clq",
@@ -289,21 +322,23 @@ int main()
         "Graphs/san1000.clq",
         "Graphs/sanr200_0.9.clq",
     };
-    ofstream fout("clique_bnb.csv");
-    fout << "File; Clique; Time (sec)\n";
+    //ofstream fout("clique_bnb.csv");
+    //fout << "File; Clique; Time (sec)\n";
+    ofstream log("output.txt");
     for (string file : files)
     {
         BnBSolver problem;
         problem.ReadGraphFile(file);
         problem.ClearClique();
         clock_t start = clock();
+        problem.SetLogger(log, file);
         problem.RunBnB();
         if (! problem.Check())
         {
             cout << "*** WARNING: incorrect clique ***\n";
-            fout << "*** WARNING: incorrect clique ***\n";
+            //fout << "*** WARNING: incorrect clique ***\n";
         }
-        fout << file << "; " << problem.GetClique().size() << "; " << double(clock() - start) / 1000 << '\n';
+        //fout << file << "; " << problem.GetClique().size() << "; " << double(clock() - start) / 1000 << '\n';
         cout << file << ", result - " << problem.GetClique().size() << ", time - " << double(clock() - start) / 1000 << '\n';
     }
     return 0;
